@@ -1,0 +1,31 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Testing          - - название того, как будет назваться (отображаться) workflow
+on:
+  push: 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Clone googletest repo
+      run: |
+        git clone https://github.com/google/googletest.git -b release-1.11.0  - - клонирование гугл тестов 
+    - name: Configure
+      run: |
+        cmake -S. -Bbuild    -- конфигурация
+    - name: Build
+      run: |
+        cmake --build build    --сборка
+    - name: Test
+      run: |
+        ./build/tests_laba1
+    - name: Make .exe file
+      run: |
+        gcc Word_Count.c -o Word_Count.exe    -упаковка в exe
+
